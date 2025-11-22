@@ -1,30 +1,45 @@
-let notes = [
-    { placeholder: "Start typing here!", value: ""}
-];
+
+/**
+ * @type {HTMLElement | null}
+ */
+let notesElement = document.getElementById("notes");
 
 window.onload = () => {
-    updateNotes();
-}
+    if (notesElement === null) {
+        window.close();
+    }
 
-function updateNotes() {
-    // @ts-ignore
-    document.getElementById("notes").innerHTML = "";
-    for (let i = 0; i < notes.length; i++) {
-        let newNote = document.createElement("input");
-        newNote.placeholder = notes[i].placeholder;
-        newNote.value = notes[i].value;
-        newNote.onkeydown = (event) => {
-            notes[i].value = newNote.value;
-            if (event.key === "Enter") {
-                addNote();
-            }
-        }
-        document.getElementById("notes")?.appendChild(newNote);
-        newNote.focus();
+    if (notesElement?.innerHTML === "") {
+        addNote();
     }
 }
 
 function addNote() {
-    notes.push({ placeholder: "Start typing here!", value: "" });
-    updateNotes();
+    let newLine = document.createElement("input");
+    newLine.contentEditable = "true";
+    newLine.placeholder = "...";
+
+    
+
+    newLine.onkeydown = (event) => {
+        if (event.key === "Enter") {
+            addNote();
+        }
+
+        if (event.key === "Backspace" && newLine.value === "" && notesElement !== null && notesElement.children.length > 1) {
+            event.preventDefault();
+            deleteNote(newLine);
+        }
+    }
+    document.getElementById("notes")?.appendChild(newLine);
+    newLine.focus();
+}
+
+/**
+ * 
+ * @param {Element} element 
+ */
+function deleteNote(element) {
+    element.remove();
+    notesElement?.children[notesElement?.children.length - 1].focus();
 }
