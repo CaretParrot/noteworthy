@@ -1,4 +1,14 @@
+:root {
+    --def: light-dark(hsl(240, 90%, 95%), hsl(240, 10%, 20%));
+    --important: light-dark(hsl(0, 90%, 95%), hsl(0, 10%, 20%));
+}
+
 input {
     text-align: left;
     margin: 0;
+}
+
+input:active, input:focus {
+    color: var(--text-accent);
+    background-color: var(--element);
 }

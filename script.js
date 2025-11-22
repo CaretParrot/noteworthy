@@ -1,4 +1,3 @@
-
 /**
  * @type {HTMLElement | null}
  */
@@ -19,8 +18,6 @@ function addNote() {
     newLine.contentEditable = "true";
     newLine.placeholder = "...";
 
-    
-
     newLine.onkeydown = (event) => {
         if (event.key === "Enter") {
             addNote();
@@ -30,6 +27,15 @@ function addNote() {
             event.preventDefault();
             deleteNote(newLine);
         }
+
+
+        if (newLine.value.startsWith("@ ")) {
+            newLine.style.backgroundColor = "var(--def)";
+        } else if (newLine.value.startsWith("! ")) {
+            newLine.style.backgroundColor = "var(--important)";
+        } else {
+            newLine.style.backgroundColor = "var(--accent)";
+        }
     }
     document.getElementById("notes")?.appendChild(newLine);
     newLine.focus();
@@ -37,9 +43,10 @@ function addNote() {
 
 /**
  * 
- * @param {Element} element 
+ * @param {HTMLInputElement} element 
  */
 function deleteNote(element) {
     element.remove();
+    //@ts-ignore
     notesElement?.children[notesElement?.children.length - 1].focus();
 }
