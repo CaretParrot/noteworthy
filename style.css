@@ -1,14 +1,23 @@
 :root {
     --def: light-dark(hsl(240, 90%, 95%), hsl(240, 10%, 20%));
     --important: light-dark(hsl(0, 90%, 95%), hsl(0, 10%, 20%));
+    --heading: light-dark(hsl(270, 80%, 90%), hsl(270, 15%, 30%));
 }
 
-input {
+span {
     text-align: left;
     margin: 0;
+    padding: calc(var(--base-unit) / 2);
+    border-radius: 0;
 }
 
-input:active, input:focus {
+#notes {
+    padding: 0;
+    margin: 0;
+    grid-gap: 0;
+}
+
+span:active, span:focus {
     color: var(--text-accent);
-    background-color: var(--element);
+    background-color: var(--accent);
 }
